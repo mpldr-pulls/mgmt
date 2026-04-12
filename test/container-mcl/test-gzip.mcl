@@ -1,0 +1,13 @@
+# Test: gzip resource - compress content to a file
+# Validates: Requirement 4.6
+
+file "/tmp/mgmt-test-gzip/" {
+	state => $const.res.file.state.exists,
+}
+
+gzip "/tmp/mgmt-test-gzip/output.gz" {
+	content => "hello from mgmt gzip resource\n",
+	level => $const.res.gzip.level.default_compression,
+
+	Depend => File["/tmp/mgmt-test-gzip/"],
+}

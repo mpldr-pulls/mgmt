@@ -1,0 +1,13 @@
+# Test: exec resource - run a shell command that writes to a file
+# Validates: Requirement 4.2
+
+file "/tmp/mgmt-test-exec/" {
+	state => $const.res.file.state.exists,
+}
+
+exec "write-output" {
+	cmd => "echo -n hello from exec resource > /tmp/mgmt-test-exec/output",
+	shell => "/bin/bash",
+}
+
+File["/tmp/mgmt-test-exec/"] -> Exec["write-output"]

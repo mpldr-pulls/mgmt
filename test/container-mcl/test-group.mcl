@@ -1,0 +1,6 @@
+# Test: group resource - create a group
+# Validates: Requirement 4.11
+
+group "mgmttestgroup" {
+	state => "exists",
+}

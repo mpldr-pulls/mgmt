@@ -1,0 +1,16 @@
+# Test: cron resource - create a systemd timer
+# Validates: Requirement 4.15
+
+# Create a simple oneshot service unit for the timer to trigger.
+file "/etc/systemd/system/mgmt-test-cron.service" {
+	state => $const.res.file.state.exists,
+	content => "[Unit]\nDescription=mgmt test cron service\n\n[Service]\nType=oneshot\nExecStart=/bin/true\n",
+}
+
+cron "mgmt-test-cron" {
+	state => "exists",
+	trigger => "OnBootSec",
+	time => "3600",
+}
+
+File["/etc/systemd/system/mgmt-test-cron.service"] -> Cron["mgmt-test-cron"]

@@ -1,0 +1,13 @@
+# Test: svc resource - start a service using systemd
+# Validates: Requirement 4.14
+
+# Install nginx so we have a service to manage.
+pkg "nginx" {
+	state => "installed",
+}
+
+svc "nginx" {
+	state => "running",
+}
+
+Pkg["nginx"] -> Svc["nginx"]

@@ -1,0 +1,9 @@
+# Test: distro detection - print os.family() result using fmt.printf
+# Validates: Requirement 4.3
+
+import "fmt"
+import "os"
+
+print "distro" {
+	msg => fmt.printf("os.family: %s", os.family()),
+}

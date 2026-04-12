@@ -1,0 +1,6 @@
+# Test: user resource - create a user account
+# Validates: Requirement 4.10
+
+user "mgmttestuser" {
+	state => "exists",
+}

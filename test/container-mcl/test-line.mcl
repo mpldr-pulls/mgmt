@@ -1,0 +1,15 @@
+# Test: line resource - add a line to a file
+# Validates: Requirement 4.5
+
+exec "create-line-file" {
+	cmd => "mkdir -p /tmp/mgmt-test-line && touch /tmp/mgmt-test-line/output",
+	shell => "/bin/bash",
+}
+
+line "add-test-line" {
+	file => "/tmp/mgmt-test-line/output",
+	state => "exists",
+	content => "hello from mgmt line resource",
+
+	Depend => Exec["create-line-file"],
+}

@@ -1,0 +1,17 @@
+# Test: ssh:authorized_key resource - add an SSH key entry to a file
+# Validates: Requirement 4.12
+
+file "/tmp/mgmt-test-sshkey/" {
+	state => $const.res.file.state.exists,
+}
+
+ssh:authorized_key "test-key" {
+	file => "/tmp/mgmt-test-sshkey/authorized_keys",
+	state => "exists",
+	type => "ssh-ed25519",
+	key => "AAAAC3NzaC1lZDI1NTE5AAAAIOLlHSZU/zoD54fGacCI1wAFEdRmoBYFKG1PMDhhJBFX",
+	comment => "mgmt-test@container",
+	mkdir => false,
+
+	Depend => File["/tmp/mgmt-test-sshkey/"],
+}

@@ -1,0 +1,6 @@
+# Test: pkg resource - install a package via PackageKit
+# Validates: Requirement 4.13
+
+pkg "tree" {
+	state => "installed",
+}

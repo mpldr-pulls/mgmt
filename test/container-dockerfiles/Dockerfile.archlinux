@@ -1,0 +1,3 @@
+FROM archlinux:latest
+RUN pacman -Syu --noconfirm procps-ng dbus packagekit polkit nginx && pacman -Scc --noconfirm
+CMD ["/usr/sbin/init"]

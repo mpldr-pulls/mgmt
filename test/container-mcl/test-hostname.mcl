@@ -1,0 +1,15 @@
+# Test: sys.hostname() - write hostname to a file
+# Validates: Requirement 4.9
+
+import "sys"
+
+file "/tmp/mgmt-test-hostname/" {
+	state => $const.res.file.state.exists,
+}
+
+file "/tmp/mgmt-test-hostname/output" {
+	state => $const.res.file.state.exists,
+	content => sys.hostname(),
+
+	Depend => File["/tmp/mgmt-test-hostname/"],
+}

@@ -1,0 +1,13 @@
+# Test: file resource - create a file with known content
+# Validates: Requirement 4.1
+
+file "/tmp/mgmt-test-file/" {
+	state => $const.res.file.state.exists,
+}
+
+file "/tmp/mgmt-test-file/output" {
+	state => $const.res.file.state.exists,
+	content => "hello from mgmt container test\n",
+}
+
+File["/tmp/mgmt-test-file/"] -> File["/tmp/mgmt-test-file/output"]

@@ -1,0 +1,28 @@
+# Test: tar resource - archive files to a tar file
+# Validates: Requirement 4.7
+
+file "/tmp/mgmt-test-tar/" {
+	state => $const.res.file.state.exists,
+}
+
+file "/tmp/mgmt-test-tar/input/" {
+	state => $const.res.file.state.exists,
+
+	Depend => File["/tmp/mgmt-test-tar/"],
+}
+
+file "/tmp/mgmt-test-tar/input/a" {
+	state => $const.res.file.state.exists,
+	content => "file a\n",
+
+	Depend => File["/tmp/mgmt-test-tar/input/"],
+}
+
+tar "/tmp/mgmt-test-tar/output.tar" {
+	inputs => [
+		"/tmp/mgmt-test-tar/input/",
+	],
+	format => $const.res.tar.format.gnu,
+
+	Depend => File["/tmp/mgmt-test-tar/input/a"],
+}
